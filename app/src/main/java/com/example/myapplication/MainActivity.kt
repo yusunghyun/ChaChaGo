@@ -14,15 +14,20 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
+        // 텍스트와 버튼 id 불러오기
         val colorText: TextView = findViewById(R.id.colorText)
         val colorButton: Button = findViewById(R.id.setColorButton)
 
+        // 버튼 동작 로직
         colorButton.setOnClickListener {
+            // 컬러와 텍스트를 동일시 하기위해 r,g,b 선언.
             val r: Int = (0..255).random()
             val g: Int = (0..255).random()
             val b: Int = (0..255).random()
 
+            // set컬러. setTextColor에 인풋타입이 Color라서 Color임포트
             colorText.setTextColor(Color.rgb(r, g, b))
+            // set텍스트
             colorText.text = "COLOR: ${r}r ${g}g ${b}b"
         }
     }
