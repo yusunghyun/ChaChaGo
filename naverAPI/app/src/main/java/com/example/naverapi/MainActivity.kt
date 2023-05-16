@@ -3,25 +3,63 @@ package com.example.naverapi
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.example.naverapi.databinding.ActivityMainBinding
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.fragment.app.commit
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import okhttp3.*
 import java.io.IOException
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NaverFragment.Callbacks {
 
     val binding by lazy { ActivityMainBinding.inflate(layoutInflater)}
+
+    override fun onItemPrint(num: String) {
+        TODO("Not yet implemented")
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        var firstFragment = NaverFragment()
+        var secondFragment = GptFragment.newInstance("","")
+
+        val myFrags = listOf(firstFragment, secondFragment)
+        val fragAdapter = FragmentAdapter(this)
+        fragAdapter.fragList = myFrags
+        binding.vPage.adapter = fragAdapter
+
+        val tabs = listOf("파파고","Chat GPT")
+        TabLayoutMediator(binding.tabLayout, binding.vPage) {tab, postition ->
+            tab.text = tabs.get(postition)
+        }.attach()
+
+//        val fManager = supportFragmentManager
+//
+//        fManager.commit {
+//            add(binding.frag.id, firstFragment)
+//        }
+//
+//        binding.nextBtn.setOnClickListener{
+//            fManager.commit{
+//                setReorderingAllowed(true)
+//                addToBackStack(null)
+//                replace(binding.frag.id, secondFragment)
+//            }
+//        }
+//
+
         binding.translatebtn.setOnClickListener{
             translate()
-
+            var inputToPapago = binding.input.text.toString()
+            NaverFragment.newInstance("$inputToPapago","시작전 ")
+            Log.d("IISE",   "$inputToPapago")
         }
 
     }

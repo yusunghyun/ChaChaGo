@@ -15,60 +15,70 @@
             android:id="@+id/output"
             android:layout_width="411dp"
             android:layout_height="80dp"
-            android:layout_marginTop="184dp"
+            android:layout_marginTop="24dp"
             android:text="TextView"
-            app:layout_constraintTop_toBottomOf="@+id/input"
-            tools:layout_editor_absoluteX="-2dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/translatebtn" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="165dp"
+            android:layout_marginTop="16dp"
             android:hint="hint"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="0dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/translatebtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="71dp"
-            android:layout_marginBottom="65dp"
+            android:layout_marginStart="156dp"
+            android:layout_marginTop="28dp"
             android:text="Button"
-            app:layout_constraintBottom_toTopOf="@+id/output"
-            app:layout_constraintTop_toBottomOf="@+id/input"
-            tools:layout_editor_absoluteX="158dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/input" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vPage"
+            android:layout_width="408dp"
+            android:layout_height="297dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginEnd="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="409dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="147dp"
+            android:layout_marginEnd="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/output">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Monday" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tuesday" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wednesday" />
+        </com.google.android.material.tabs.TabLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/output"
-        android:layout_width="411dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="184dp"
-        android:text="TextView"
-        app:layout_constraintTop_toBottomOf="@+id/input"
-        tools:layout_editor_absoluteX="-2dp" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="165dp"
-        android:hint="hint"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp" />
-
-    <Button
-        android:id="@+id/translatebtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="71dp"
-        android:layout_marginBottom="65dp"
-        android:text="Button"
-        app:layout_constraintBottom_toTopOf="@+id/output"
-        app:layout_constraintTop_toBottomOf="@+id/input"
-        tools:layout_editor_absoluteX="158dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
