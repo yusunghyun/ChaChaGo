@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.CoroutineScope
@@ -34,7 +35,8 @@ class MainActivity : AppCompatActivity() {
                         ) {
                             if (response.isSuccessful) {
                                 val apiResponse = response.body()
-                                responseText.text = "Response: ${apiResponse?.choices?.first()?.text}"
+                                Log.d("IISE", "$apiResponse")
+                                responseText.text = "Response: ${apiResponse?.choices?.get(0)?.message?.content}"
                             } else {
                                 Toast.makeText(
                                     this@MainActivity,
