@@ -1,59 +1,59 @@
 package com.example.myapplication
 
-import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
-import android.view.*
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import java.util.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_main)
 
-        // 텍스트와 버튼 id 불러오기
-        val colorText: TextView = findViewById(R.id.colorText)
-        val colorButton: Button = findViewById(R.id.setColorButton)
+        val userInput = findViewById<EditText>(R.id.userInput)
+        val responseText = findViewById<TextView>(R.id.responseText)
+        val sendButton = findViewById<Button>(R.id.sendButton)
 
-        // 버튼 동작 로직
-        colorButton.setOnClickListener {
-            // 컬러와 텍스트를 동일시 하기위해 r,g,b 선언.
-            val r: Int = (0..255).random()
-            val g: Int = (0..255).random()
-            val b: Int = (0..255).random()
+        sendButton.setOnClickListener {
+            val userMessage = Message("user", userInput.text.toString())
+            val myPost = MyPost("gpt-3.5-turbo", listOf(userMessage))
+            CoroutineScope(Dispatchers.IO).launch {
+                val request = NetworkService.api.createPost(myPost)
+                withContext(Dispatchers.Main) {
+                    request.enqueue(object : Callback<MyResponse> {
+                        override fun onResponse(
+                            call: Call<MyResponse>,
+                            response: Response<MyResponse>
+                        ) {
+                            if (response.isSuccessful) {
+                                val apiResponse = response.body()
+                                responseText.text = "Response: ${apiResponse?.choices?.first()?.text}"
+                            } else {
+                                Toast.makeText(
+                                    this@MainActivity,
+                                    "Error: ${response.errorBody()}",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                        }
 
-            // set컬러. setTextColor에 인풋타입이 Color라서 Color임포트
-            colorText.setTextColor(Color.rgb(r, g, b))
-            // set텍스트
-            colorText.text = "COLOR: ${r}r ${g}g ${b}b"
+                        override fun onFailure(call: Call<MyResponse>, t: Throwable) {
+                            Toast.makeText(
+                                this@MainActivity,
+                                "Failure: ${t.message}",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    })
+                }
+            }
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.d("IISE", "onStart")
-    }
-    override fun onResume() {
-        super.onResume()
-        Log.d("IISE", "onResume")
-    }
-    override fun onPause() {
-        super.onPause()
-        Log.d("IISE", "onPause")
-    }
-    override fun onStop() {
-        super.onStop()
-        Log.d("IISE", "onStop")
-    }
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("IISE", "onDestroy")
-    }
-    override fun onRestart() {
-        super.onRestart()
-        Log.d("IISE", "onRestart")
     }
 }
