@@ -15,6 +15,14 @@ import com.google.android.material.tabs.TabLayoutMediator
 import okhttp3.*
 import java.io.IOException
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
 class MainActivity : AppCompatActivity() {
 
     val binding by lazy { ActivityMainBinding.inflate(layoutInflater)}
@@ -22,6 +30,47 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+
+        //gpt
+        val userInput = findViewById<EditText>(R.id.userInput)
+        val responseText = findViewById<TextView>(R.id.responseText)
+        val sendButton = findViewById<Button>(R.id.sendButton)
+
+        sendButton.setOnClickListener {
+            val userMessage = Message("user", userInput.text.toString())
+            val myPost = MyPost("gpt-3.5-turbo", listOf(userMessage))
+            CoroutineScope(Dispatchers.IO).launch {
+                val request = NetworkService.api.createPost(myPost)
+                withContext(Dispatchers.Main) {
+                    request.enqueue(object : Callback<MyResponse> {
+                        override fun onResponse(
+                            call: Call<MyResponse>,
+                            response: Response<MyResponse>
+                        ) {
+                            if (response.isSuccessful) {
+                                val apiResponse = response.body()
+                                responseText.text = "Response: ${apiResponse?.choices?.first()?.text}"
+                            } else {
+                                Toast.makeText(
+                                    this@MainActivity,
+                                    "Error: ${response.errorBody()}",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                        }
+
+                        override fun onFailure(call: Call<MyResponse>, t: Throwable) {
+                            Toast.makeText(
+                                this@MainActivity,
+                                "Failure: ${t.message}",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    })
+                }
+            }
+        }
 
         var firstFragment = NaverFragment()                                                 // Naver fragment 생성
         var secondFragment = GptFragment.newInstance("","")                   // GPT fragment 생성 -> 명목상 프래그먼티라고 하는데 실질은 view page
