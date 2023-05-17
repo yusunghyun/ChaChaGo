@@ -12,7 +12,7 @@ import com.example.naverapi.databinding.FragmentNaverBinding
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
-
+                                                                                // gpt 프래그먼트만 생성해나서 여기에는 암것도없습니다
 /**
  * A simple [Fragment] subclass.
  * Use the [GptFragment.newInstance] factory method to

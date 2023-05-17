@@ -15,56 +15,41 @@ import com.google.android.material.tabs.TabLayoutMediator
 import okhttp3.*
 import java.io.IOException
 
-class MainActivity : AppCompatActivity(), NaverFragment.Callbacks {
+class MainActivity : AppCompatActivity() {
 
     val binding by lazy { ActivityMainBinding.inflate(layoutInflater)}
-
-    override fun onItemPrint(num: String) {
-        TODO("Not yet implemented")
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        var firstFragment = NaverFragment()
-        var secondFragment = GptFragment.newInstance("","")
+        var firstFragment = NaverFragment()                                                 // Naver fragment 생성
+        var secondFragment = GptFragment.newInstance("","")                   // GPT fragment 생성 -> 명목상 프래그먼티라고 하는데 실질은 view page
 
-        val myFrags = listOf(firstFragment, secondFragment)
+        val myFrags = listOf(firstFragment, secondFragment)                                 //다음은 view page생성
         val fragAdapter = FragmentAdapter(this)
         fragAdapter.fragList = myFrags
         binding.vPage.adapter = fragAdapter
 
-        val tabs = listOf("파파고","Chat GPT")
+        val tabs = listOf("파파고","Chat GPT")                                                // view page 위에 있는 파파고, gpt 버튼
         TabLayoutMediator(binding.tabLayout, binding.vPage) {tab, postition ->
             tab.text = tabs.get(postition)
         }.attach()
 
-//        val fManager = supportFragmentManager
-//
-//        fManager.commit {
-//            add(binding.frag.id, firstFragment)
-//        }
-//
-//        binding.nextBtn.setOnClickListener{
-//            fManager.commit{
-//                setReorderingAllowed(true)
-//                addToBackStack(null)
-//                replace(binding.frag.id, secondFragment)
-//            }
-//        }
-//
 
-        binding.translatebtn.setOnClickListener{
-            translate()
-            var inputToPapago = binding.input.text.toString()
-            NaverFragment.newInstance("$inputToPapago","시작전 ")
-            Log.d("IISE",   "$inputToPapago")
+        binding.translatebtn.setOnClickListener{                                       // 버튼 클릭시 이벤트 발생
+            translate()                                                                       // 파파고 api 호출 통한 번역
+            val inputToPapago = binding.input.text.toString()                                 // 입력값 받아옴
+            Log.d("IISE", inputToPapago)
+            val naverFrag = fragAdapter.fragList[0] as NaverFragment                          // 입력값 강제로 네이버 프래그먼티에 던짐
+            naverFrag.updateFragText(inputToPapago)                                           // 네이버 viewpage에 출력 , updateFragText는 네이버 fragment에 입력되어있음
+
         }
 
     }
 
-    private fun translate() {
+
+    private fun translate() {                                                                 // 아래는 다 네이버 파파고 api 호출
         val client = OkHttpClient()
 
         val url = "https://openapi.naver.com/v1/papago/n2mt"
@@ -75,8 +60,8 @@ class MainActivity : AppCompatActivity(), NaverFragment.Callbacks {
             .build()
 
         val request = Request.Builder()
-            .addHeader("X-Naver-Client-Id", "jBcll4iM5Oi6E83S5dK0")
-            .addHeader("X-Naver-Client-Secret", "JgFVxhhsQj")
+            .addHeader("X-Naver-Client-Id", "")             // 여기는 지우라고 했으니까 지워서 다시 올려요
+            .addHeader("X-Naver-Client-Secret", "")                   // 근데 없어서 실행은 안될듯?
             .url(url)
             .post(requestBody)
             .build()
@@ -93,6 +78,10 @@ class MainActivity : AppCompatActivity(), NaverFragment.Callbacks {
                 val translatedText = getTranslatedText(result)
                 runOnUiThread {
                     binding.output.text = translatedText.toString()
+
+
+
+
                 }
             }
         })
