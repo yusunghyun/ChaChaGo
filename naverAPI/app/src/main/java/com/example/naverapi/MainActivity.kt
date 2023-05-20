@@ -110,13 +110,13 @@ class MainActivity : AppCompatActivity() {
             .post(requestBody)
             .build()
 
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
+        client.newCall(request).enqueue(object : okhttp3.Callback {
+            override fun onFailure(call: okhttp3.Call, e: IOException) {
                 // API 호출 실패 시 처리하는 코드
                 e.printStackTrace()
             }
 
-            override fun onResponse(call: Call, response: Response) {
+            override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
                 // API 호출 성공 시 처리하는 코드
                 val result = response.body?.string()
                 val translatedText = getTranslatedText(result)
