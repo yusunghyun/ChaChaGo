@@ -5,8 +5,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
 class FragmentAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
-    var fragList = listOf<Fragment>()                                               //viewpage adapter
-
+    var fragList = listOf<Fragment>() // viewpage adapter
 
     override fun getItemCount(): Int {
         return fragList.size
@@ -15,6 +14,4 @@ class FragmentAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter
     override fun createFragment(position: Int): Fragment {
         return fragList.get(position)
     }
-
-
 }
