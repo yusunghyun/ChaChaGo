@@ -9,4 +9,8 @@ data class MyResponse(
     val model: String,
     val choices: List<Choice>
 )
-data class Choice(val text: String, val index: Int, val logprobs: Any?, val finish_reason: String)
+data class Choice(
+    val message: Message,
+    val finish_reason: String,
+    val index: Int
+)
