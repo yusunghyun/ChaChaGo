@@ -27,8 +27,10 @@ class NaverFragment : Fragment() {
     lateinit var binding: FragmentNaverBinding
 
     fun updateFragText(text: String) {
-        binding.fragtext.text = text // 네이버 viewpage에 있는 text변경
-        Log.d("IISE", "DHO DKSHLSE")
+        if (this::binding.isInitialized) {
+            binding.fragtext.text = text // 네이버 viewpage에 있는 text변경
+            Log.d("IISE", "DHO DKSHLSE")
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +44,7 @@ class NaverFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentNaverBinding.inflate(inflater, container, false)

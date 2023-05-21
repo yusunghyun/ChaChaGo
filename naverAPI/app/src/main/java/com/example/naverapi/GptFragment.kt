@@ -1,6 +1,7 @@
 package com.example.naverapi
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +30,13 @@ class GptFragment : Fragment() {
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
+        }
+    }
+
+    fun updateFragText(text: String) {
+        if (this::binding.isInitialized) {
+            binding.fragtext2.text = text // 네이버 viewpage에 있는 text변경
+            Log.d("IISE", text)
         }
     }
 
