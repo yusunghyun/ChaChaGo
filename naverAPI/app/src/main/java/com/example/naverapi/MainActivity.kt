@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
             val myPost = MyPost("gpt-3.5-turbo", listOf(userMessage))
             sendRequest(myPost)
 
-//            translateText(inputToPapago)
+            translateText(inputToPapago)
         }
     }
 
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
                             val gptText = "Response: ${apiResponse?.choices?.get(0)?.message?.content}"
                             Log.d("IISE", gptText)
                             Log.d("IISE", apiResponse?.choices.toString())
-                            binding.output.text = gptText
+                            binding.out1.text = gptText
                             fragmentsHandler.getGPTFragment().updateFragText(gptText)
                         } else {
                             showToast("Error: ${response.errorBody()}")
@@ -70,8 +70,7 @@ class MainActivity : AppCompatActivity() {
         APIManager.translate(input) { translatedText ->
             runOnUiThread {
                 binding.output.text = translatedText
-                fragmentsHandler.getNaverFragment().updateFragText(translatedText)
-            }
+                fragmentsHandler.getNaverFragment().updateFragText(translatedText) }
         }
     }
 
