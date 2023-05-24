@@ -1,11 +1,18 @@
 package com.example.naverapi
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.naverAPI.APIManager
+import com.example.naverAPI.Message
+import com.example.naverAPI.MyPost
 import com.example.naverapi.databinding.FragmentGptBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -50,6 +57,34 @@ class GptFragment : Fragment() {
 
         return binding.root
     }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // 복사하기 버튼 클릭 시 실행되는 코드
+        binding.copyGPT.setOnClickListener {
+            val selectedText = binding.fragtext2.text
+
+            val clipboard =
+                requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText("Copied Text", selectedText)
+            clipboard.setPrimaryClip(clip)
+            Toast.makeText(requireContext(), "텍스트가 복사되었습니다.", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.transGPT.setOnClickListener{
+
+            translateGPT(binding.fragtext2.text.toString())
+        }
+
+    }
+
+    fun translateGPT(text: String) {
+        APIManager.translate(text) { translatedText ->
+            updateFragText(translatedText)
+        }
+    }
+
+
 
     companion object {
         /**

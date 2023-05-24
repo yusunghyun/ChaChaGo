@@ -1,10 +1,14 @@
 package com.example.naverapi
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.naverapi.databinding.FragmentNaverBinding
 
@@ -20,11 +24,16 @@ private const val ARG_PARAM2 = "param2" // 위이 여러 부분들은 수업들�
  */
 
 class NaverFragment : Fragment() {
+
+
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null // 저희는 이제 강제로 메인에서 프래그먼트 요소를 변경할거기때문에
     private var param2: String? = null // 사실 이런 PARAM 변수들은 필요는 없어요
 
     lateinit var binding: FragmentNaverBinding
+
+
 
     fun updateFragText(text: String) {
         if (this::binding.isInitialized) {
@@ -51,6 +60,21 @@ class NaverFragment : Fragment() {
 
         return binding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // 복사하기 버튼 클릭 시 실행되는 코드
+        binding.copyNaver.setOnClickListener {
+            val selectedText = binding.fragtext.text
+
+            val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText("Copied Text", selectedText)
+            clipboard.setPrimaryClip(clip)
+            Toast.makeText(requireContext(), "텍스트가 복사되었습니다.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 
     companion object {
         /**

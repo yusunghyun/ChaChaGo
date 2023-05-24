@@ -2,6 +2,7 @@ package com.example.naverapi
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.naverAPI.*
@@ -22,12 +23,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setupUI()
+
+        binding.out1.visibility = View.GONE
+        binding.output.visibility = View.GONE
+
     }
 
     private fun setupUI() {
         fragmentsHandler = FragmentsHandler(binding, this)
 
-        binding.translatebtn.setOnClickListener { // 버튼 클릭시 이벤트 발생
+        binding.sending.setOnClickListener { // 버튼 클릭시 이벤트 발생
             val inputToPapago = binding.input.text.toString()
             val userMessage = Message("user", inputToPapago)
             val myPost = MyPost("gpt-3.5-turbo", listOf(userMessage))
