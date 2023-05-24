@@ -15,8 +15,8 @@ object APIManager {
             .build()
 
         val request = Request.Builder()
-            .addHeader("X-Naver-Client-Id", "jBcll4iM5Oi6E83S5dK0") // Insert Client ID
-            .addHeader("X-Naver-Client-Secret", "JgFVxhhsQj") // Insert Client Secret
+            .addHeader("X-Naver-Client-Id", "") // Insert Client ID
+            .addHeader("X-Naver-Client-Secret", "") // Insert Client Secret
             .url(url)
             .post(requestBody)
             .build()
@@ -25,7 +25,6 @@ object APIManager {
             override fun onFailure(call: Call, e: IOException) {
                 e.printStackTrace()
             }
-
             override fun onResponse(call: Call, response: Response) {
                 val result = response.body?.string()
                 val translatedText = getTranslatedText(result)
@@ -43,3 +42,4 @@ object APIManager {
         return json.substring(startIndex, endIndex)
     }
 }
+

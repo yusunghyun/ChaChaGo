@@ -10,7 +10,7 @@ import retrofit2.http.Headers
 import retrofit2.http.POST
 
 interface OpenAIApiService {
-    @Headers("Authorization: Bearer API_KEY")
+    @Headers("Authorization: Bearer ")
     @POST("v1/chat/completions")
     fun createPost(@Body myPost: MyPost): Call<MyResponse>
 }
