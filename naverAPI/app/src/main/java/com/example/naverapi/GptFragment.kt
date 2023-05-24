@@ -11,8 +11,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.naverAPI.APIManager
-import com.example.naverAPI.Message
-import com.example.naverAPI.MyPost
 import com.example.naverapi.databinding.FragmentGptBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -71,11 +69,9 @@ class GptFragment : Fragment() {
             Toast.makeText(requireContext(), "텍스트가 복사되었습니다.", Toast.LENGTH_SHORT).show()
         }
 
-        binding.transGPT.setOnClickListener{
-
+        binding.transGPT.setOnClickListener {
             translateGPT(binding.fragtext2.text.toString())
         }
-
     }
 
     fun translateGPT(text: String) {
@@ -83,8 +79,6 @@ class GptFragment : Fragment() {
             updateFragText(translatedText)
         }
     }
-
-
 
     companion object {
         /**

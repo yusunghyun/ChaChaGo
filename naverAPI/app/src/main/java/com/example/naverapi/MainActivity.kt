@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
 
         binding.out1.visibility = View.GONE
         binding.output.visibility = View.GONE
-
     }
 
     private fun setupUI() {
@@ -75,7 +74,8 @@ class MainActivity : AppCompatActivity() {
         APIManager.translate(input) { translatedText ->
             runOnUiThread {
                 binding.output.text = translatedText
-                fragmentsHandler.getNaverFragment().updateFragText(translatedText) }
+                fragmentsHandler.getNaverFragment().updateFragText(translatedText)
+            }
         }
     }
 

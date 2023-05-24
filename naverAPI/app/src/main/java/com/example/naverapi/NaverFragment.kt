@@ -25,15 +25,11 @@ private const val ARG_PARAM2 = "param2" // 위이 여러 부분들은 수업들�
 
 class NaverFragment : Fragment() {
 
-
-
     // TODO: Rename and change types of parameters
     private var param1: String? = null // 저희는 이제 강제로 메인에서 프래그먼트 요소를 변경할거기때문에
     private var param2: String? = null // 사실 이런 PARAM 변수들은 필요는 없어요
 
     lateinit var binding: FragmentNaverBinding
-
-
 
     fun updateFragText(text: String) {
         if (this::binding.isInitialized) {
@@ -74,7 +70,6 @@ class NaverFragment : Fragment() {
             Toast.makeText(requireContext(), "텍스트가 복사되었습니다.", Toast.LENGTH_SHORT).show()
         }
     }
-
 
     companion object {
         /**
