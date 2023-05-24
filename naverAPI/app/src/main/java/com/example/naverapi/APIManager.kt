@@ -1,5 +1,8 @@
 package com.example.naverAPI
 
+import android.util.Log
+import com.google.gson.Gson
+import com.google.gson.annotations.SerializedName
 import java.io.IOException
 import okhttp3.*
 
@@ -15,8 +18,8 @@ object APIManager {
             .build()
 
         val request = Request.Builder()
-            .addHeader("X-Naver-Client-Id", "") // Insert Client ID
-            .addHeader("X-Naver-Client-Secret", "") // Insert Client Secret
+        .addHeader("X-Naver-Client-Id", "") // Insert Client ID
+        .addHeader("X-Naver-Client-Secret", "") // Insert Client Secret
             .url(url)
             .post(requestBody)
             .build()
@@ -32,14 +35,32 @@ object APIManager {
             }
         })
     }
-
     private fun getTranslatedText(json: String?): String {
         if (json == null) {
             return ""
         }
-        val startIndex = json.indexOf("\"translatedText\":\"") + 18
-        val endIndex = json.indexOf("\"}", startIndex)
-        return json.substring(startIndex, endIndex)
+        val gson = Gson()
+        val response = gson.fromJson(json, ResponseWrapper::class.java)
+        val result = response.message.result.translatedText
+        Log.d("IISE", "papago response 가공: $result")
+        return result
     }
 }
 
+data class ResponseWrapper(
+    @SerializedName("@type") val type: String,
+    @SerializedName("@service") val service: String,
+    @SerializedName("@version") val version: String,
+    val message: MessageResult
+)
+
+data class MessageResult(
+    val result: TranslationResult
+)
+
+data class TranslationResult(
+    val srcLangType: String,
+    val tarLangType: String,
+    val translatedText: String,
+    val engineType: String
+)

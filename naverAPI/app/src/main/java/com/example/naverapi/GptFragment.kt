@@ -13,16 +13,9 @@ import androidx.fragment.app.Fragment
 import com.example.naverAPI.APIManager
 import com.example.naverapi.databinding.FragmentGptBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 // gpt 프래그먼트만 생성해나서 여기에는 암것도없습니다
-/**
- * A simple [Fragment] subclass.
- * Use the [GptFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class GptFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -40,8 +33,8 @@ class GptFragment : Fragment() {
 
     fun updateFragText(text: String) {
         if (this::binding.isInitialized) {
-            binding.fragtext2.text = text // 네이버 viewpage에 있는 text변경
-            Log.d("IISE", text)
+            binding.fragtext2.text = text // gpt viewpage에 있는 text변경
+            Log.d("IISE", "gpt : $text")
         }
     }
 
@@ -50,7 +43,6 @@ class GptFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = FragmentGptBinding.inflate(inflater, container, false)
 
         return binding.root
@@ -81,15 +73,6 @@ class GptFragment : Fragment() {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment GptFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic fun newInstance(param1: String, param2: String) =
             GptFragment().apply {
                 arguments = Bundle().apply {
