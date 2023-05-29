@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity() {
     // PaPaGo API
     private fun sendRequestToPaPaGo(input: String) {
         // 텍스트 번역
-        APIManager.translate(input) { translatedText ->
+        APIManager.translateKoreaToEng(input) { translatedText ->
             runOnUiThread {
                 // 번역된 텍스트를 화면에 출력
                 Log.d("IISE", "translatedText : $translatedText")
