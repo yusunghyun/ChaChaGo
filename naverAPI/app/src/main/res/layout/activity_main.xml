@@ -14,15 +14,6 @@
         tools:layout_editor_absoluteX="-42dp"
         tools:layout_editor_absoluteY="171dp">
 
-        <TextView
-            android:id="@+id/output"
-            android:layout_width="43dp"
-            android:layout_height="29dp"
-            android:text="TextView"
-            app:layout_constraintEnd_toStartOf="@+id/out1"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vPage"
             android:layout_width="0dp"
@@ -72,13 +63,6 @@
                 tools:layout_editor_absoluteX="273dp"
                 tools:layout_editor_absoluteY="360dp" />
         </com.google.android.material.tabs.TabLayout>
-
-        <TextView
-            android:id="@+id/out1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            tools:layout_editor_absoluteX="306dp" />
 
 
         <com.google.android.material.textfield.TextInputEditText
@@ -135,6 +119,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.297"
             app:srcCompat="@drawable/uuun" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

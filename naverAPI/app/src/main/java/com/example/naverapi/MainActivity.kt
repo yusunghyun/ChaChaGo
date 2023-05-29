@@ -2,7 +2,6 @@ package com.example.naverapi
 
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.naverAPI.*
@@ -23,10 +22,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setupUI()
-
-        // 아웃풋 초기화 (데이터가 없는 상태에서 보이지 않도록 설정)
-        binding.out1.visibility = View.GONE
-        binding.output.visibility = View.GONE
     }
 
     private fun setupUI() {
@@ -54,18 +49,24 @@ class MainActivity : AppCompatActivity() {
         translateText(input)
     }
 
+    private val loadingDialog by lazy { LoadingDialog(this) }
+
     private fun sendRequestToGPT(myPost: MyPost) {
         CoroutineScope(Dispatchers.IO).launch {
             val request = NetworkService.api.createPost(myPost)
             withContext(Dispatchers.Main) {
+                loadingDialog.show()
+
                 request.enqueue(object : Callback<MyResponse> {
                     override fun onResponse(call: Call<MyResponse>, response: Response<MyResponse>) {
                         // 응답 처리
+                        loadingDialog.dismiss()
                         handleGptResponse(response)
                     }
 
                     override fun onFailure(call: Call<MyResponse>, t: Throwable) {
                         // 요청 실패 처리
+                        loadingDialog.dismiss()
                         showToast("Failure: ${t.message}")
                     }
                 })
@@ -79,12 +80,8 @@ class MainActivity : AppCompatActivity() {
             val gptResponseText = "${apiResponse?.choices?.get(0)?.message?.content}"
 
             // GPT-3.5-turbo로부터 받은 응답 텍스트를 화면에 출력
-            binding.out1.text = gptResponseText
             Log.d("IISE", "gptResponseText : $gptResponseText")
             fragmentsHandler.getGPTFragment().updateFragText(gptResponseText)
-
-            // 아웃풋 보이기
-            binding.out1.visibility = View.VISIBLE
         } else {
             showToast("Error: ${response.errorBody()}")
         }
@@ -95,12 +92,8 @@ class MainActivity : AppCompatActivity() {
         APIManager.translate(input) { translatedText ->
             runOnUiThread {
                 // 번역된 텍스트를 화면에 출력
-                binding.output.text = translatedText
                 Log.d("IISE", "translatedText : $translatedText")
                 fragmentsHandler.getNaverFragment().updateFragText(translatedText)
-
-                // 아웃풋 보이기
-                binding.output.visibility = View.VISIBLE
             }
         }
     }
