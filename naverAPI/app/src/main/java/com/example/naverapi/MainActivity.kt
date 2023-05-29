@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
         binding.sending.setOnClickListener {
             // 사용자 입력 텍스트를 가지고 GPT-3.5-turbo에 요청 보내기
             val userInput = binding.input.text.toString()
+            translateText(userInput)
             handleUserInput(userInput)
         }
     }
@@ -84,7 +85,7 @@ class MainActivity : AppCompatActivity() {
             fragmentsHandler.getGPTFragment().updateFragText(gptResponseText)
 
             // 아웃풋 보이기
-            binding.out1.visibility = View.VISIBLE
+            //binding.out1.visibility = View.VISIBLE
         } else {
             showToast("Error: ${response.errorBody()}")
         }
@@ -100,7 +101,7 @@ class MainActivity : AppCompatActivity() {
                 fragmentsHandler.getNaverFragment().updateFragText(translatedText)
 
                 // 아웃풋 보이기
-                binding.output.visibility = View.VISIBLE
+               // binding.output.visibility = View.VISIBLE
             }
         }
     }
