@@ -26,8 +26,8 @@ object APIManager {
             .build()
 
         val request = Request.Builder()
-        .addHeader("X-Naver-Client-Id", "jBcll4iM5Oi6E83S5dK0") // Insert Client ID
-        .addHeader("X-Naver-Client-Secret", "JgFVxhhsQj") // Insert Client Secret
+        .addHeader("X-Naver-Client-Id", "") // Insert Client ID
+        .addHeader("X-Naver-Client-Secret", "") // Insert Client Secret
             .url(url)
             .post(requestBody)
             .build()
@@ -53,8 +53,8 @@ object APIManager {
             .build()
 
         val requests = Request.Builder()
-            .addHeader("X-Naver-Client-Id", "jBcll4iM5Oi6E83S5dK0") // Insert Client ID
-            .addHeader("X-Naver-Client-Secret", "JgFVxhhsQj") // Insert Client Secret
+            .addHeader("X-Naver-Client-Id", "") // Insert Client ID
+            .addHeader("X-Naver-Client-Secret", "") // Insert Client Secret
             .url(url)
             .post(requestBodys)
             .build()
@@ -84,8 +84,8 @@ object APIManager {
 
 
     fun detect(text: String,callback: (String) -> Unit)  {
-        val clientId = "jBcll4iM5Oi6E83S5dK0" // 본인의 클라이언트 ID로 변경해주세요.
-        val clientSecret = "JgFVxhhsQj" // 본인의 클라이언트 Secret으로 변경해주세요.
+        val clientId = "" // 본인의 클라이언트 ID로 변경해주세요.
+        val clientSecret = "" // 본인의 클라이언트 Secret으로 변경해주세요.
 
         val url = "https://openapi.naver.com/v1/papago/detectLangs"
         val requestBody = "query=${text.encodeURIComponent()}".toRequestBody("application/x-www-form-urlencoded".toMediaType())
