@@ -15,6 +15,7 @@ import com.example.naverapi.databinding.FragmentGptBinding
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+
 // gpt 프래그먼트만 생성해나서 여기에는 암것도없습니다
 class GptFragment : Fragment() {
     // TODO: Rename and change types of parameters

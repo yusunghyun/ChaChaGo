@@ -45,12 +45,14 @@ class MainActivity : AppCompatActivity() {
         // GPT-3.5-turbo에 요청 보내기
         sendRequestToGPT(myPost)
 
-        // 사용자 입력 텍스트 번역
-        translateText(input)
+        // PaPago 에 요청 보내기
+        sendRequestToPaPaGo(input)
     }
 
+    // 로딩
     private val loadingDialog by lazy { LoadingDialog(this) }
 
+    // GPT API 호출 로직
     private fun sendRequestToGPT(myPost: MyPost) {
         CoroutineScope(Dispatchers.IO).launch {
             val request = NetworkService.api.createPost(myPost)
@@ -61,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                     override fun onResponse(call: Call<MyResponse>, response: Response<MyResponse>) {
                         // 응답 처리
                         loadingDialog.dismiss()
-                        handleGptResponse(response)
+                        setGPTUI(response)
                     }
 
                     override fun onFailure(call: Call<MyResponse>, t: Throwable) {
@@ -74,7 +76,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleGptResponse(response: Response<MyResponse>) {
+    private fun setGPTUI(response: Response<MyResponse>) {
         if (response.isSuccessful) {
             val apiResponse = response.body()
             val gptResponseText = "${apiResponse?.choices?.get(0)?.message?.content}"
@@ -87,7 +89,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun translateText(input: String) {
+    // PaPaGo API
+    private fun sendRequestToPaPaGo(input: String) {
         // 텍스트 번역
         APIManager.translate(input) { translatedText ->
             runOnUiThread {
@@ -98,6 +101,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // 토스트
     private fun showToast(message: String?) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
