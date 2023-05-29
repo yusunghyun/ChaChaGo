@@ -68,8 +68,22 @@ class GptFragment : Fragment() {
     }
 
     fun translateGPT(text: String) {
-        APIManager.translate(text) { translatedText ->
-            updateFragText(translatedText)
+        APIManager.detect(text) { langCode ->
+            if (langCode == "ko") {
+                APIManager.translate(text) { translatedText ->
+                    updateFragText(translatedText)
+                    Log.d("iise", "성공")
+                }
+            } else if (langCode == "en") {
+                APIManager.translateEngtoKorea(text) { translatedTexts ->
+                    updateFragText(translatedTexts)
+
+                }
+            } else {
+                // 다른 언어인 경우 처리
+                Log.d("iise", "실패")
+            }
+
         }
     }
 
