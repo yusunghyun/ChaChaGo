@@ -1,5 +1,6 @@
 package com.example.naverapi
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.example.naverapi.databinding.ActivityMainBinding
@@ -25,6 +26,11 @@ class FragmentsHandler(private val binding: ActivityMainBinding, activity: AppCo
         binding.vPage.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 currentPosition = position
+                if(position == 0) {
+                    binding.uploadBtn.visibility = View.VISIBLE
+                } else if ( position ==1 ) {
+                    binding.uploadBtn.visibility = View.INVISIBLE
+                }
             }
         })
     }

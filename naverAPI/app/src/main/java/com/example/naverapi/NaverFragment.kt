@@ -29,6 +29,11 @@ class NaverFragment : Fragment() {
         }
     }
 
+    fun uploadText() : String {
+        val uptext = binding.fragtext.text.toString()
+        return uptext
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {

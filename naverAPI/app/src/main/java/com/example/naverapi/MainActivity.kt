@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.text.set
 import com.example.naverAPI.*
 import com.example.naverapi.databinding.ActivityMainBinding
 import kotlinx.coroutines.CoroutineScope
@@ -22,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setupUI()
+
     }
 
     private fun setupUI() {
@@ -39,6 +41,13 @@ class MainActivity : AppCompatActivity() {
         binding.closeBtn.setOnClickListener {
             binding.input.text?.clear()
         }
+
+        binding.uploadBtn.setOnClickListener {
+            var getTransateText = fragmentsHandler.getNaverFragment().uploadText().toString()
+            Log.d("iise", "getTransateText : $getTransateText")
+            binding.input.setText(getTransateText)
+
+        }
     }
 
     private fun handleUserInput(input: String) {
@@ -51,6 +60,7 @@ class MainActivity : AppCompatActivity() {
         if (currentFragment == "GPT") {
             val myPost = MyPost("gpt-3.5-turbo", listOf(userMessage))
             // GPT-3.5-turbo에 요청 보내기
+
             sendRequestToGPT(myPost)
         } else if (currentFragment == "PaPaGo") {
             // PaPago 에 요청 보내기
