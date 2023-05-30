@@ -90,13 +90,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     // PaPaGo API
-    private fun sendRequestToPaPaGo(input: String) {
-        // 텍스트 번역
-        APIManager.translateKoreaToEng(input) { translatedText ->
-            runOnUiThread {
-                // 번역된 텍스트를 화면에 출력
-                Log.d("IISE", "translatedText : $translatedText")
-                fragmentsHandler.getNaverFragment().updateFragText(translatedText)
+        private fun sendRequestToPaPaGo(input: String) {
+        APIManager.detect(input) { langCode ->
+            if (langCode == "ko") {
+                APIManager.translateKoreaToEng(input) { translatedText ->
+                    runOnUiThread{fragmentsHandler.getNaverFragment().updateFragText(translatedText)
+                    Log.d("iise", "성공")
+                }}
+            } else if (langCode == "en") {
+                APIManager.translateEngToKorea(input) { translatedTexts ->
+                    runOnUiThread{fragmentsHandler.getNaverFragment().updateFragText(translatedTexts)
+                }}
+            } else {
+                // 다른 언어인 경우 처리
+                Log.d("iise", "실패")
             }
         }
     }
