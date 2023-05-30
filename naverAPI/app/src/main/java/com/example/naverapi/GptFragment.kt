@@ -48,6 +48,7 @@ class GptFragment : Fragment() {
 
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -68,7 +69,15 @@ class GptFragment : Fragment() {
     }
 
     fun translateGPT(text: String) {
+        val loadingDialog = LoadingDialog(requireContext())
+
+        loadingDialog.show()
+
         APIManager.detect(text) { langCode ->
+            requireActivity().runOnUiThread {
+                loadingDialog.dismiss()
+            }
+
             if (langCode == "ko") {
                 APIManager.translateKoreaToEng(text) { translatedText ->
                     updateFragText(translatedText)
