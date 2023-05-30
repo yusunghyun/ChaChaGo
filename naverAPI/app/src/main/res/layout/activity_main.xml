@@ -34,7 +34,7 @@
             android:layout_width="409dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="1dp"
-            android:layout_marginTop="112dp"
+            android:layout_marginTop="118dp"
             android:layout_marginEnd="1dp"
             android:layout_marginBottom="3dp"
             app:layout_constraintBottom_toTopOf="@+id/vPage"
@@ -49,7 +49,7 @@
             android:layout_width="0dp"
             android:layout_height="103dp"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="78dp"
+            android:layout_marginTop="70dp"
             android:layout_marginEnd="4dp"
             android:background="@drawable/edittext_border"
             android:foregroundGravity="center"
@@ -87,30 +87,13 @@
             app:srcCompat="@drawable/close" />
 
         <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:foregroundGravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.317"
-            app:srcCompat="@drawable/uuun" />
-
-        <ImageView
             android:id="@+id/imageView4"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:foregroundGravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            android:layout_width="95dp"
+            android:layout_height="86dp"
+            android:layout_marginStart="4dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.297"
-            app:srcCompat="@drawable/uuun" />
+            app:srcCompat="@drawable/chachago" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
