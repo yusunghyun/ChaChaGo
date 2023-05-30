@@ -45,13 +45,17 @@ class MainActivity : AppCompatActivity() {
         // 사용자 메세지 생성
         val userMessage = Message("user", input)
         Log.d("IISE", "input : $input")
-        val myPost = MyPost("gpt-3.5-turbo", listOf(userMessage))
 
-        // GPT-3.5-turbo에 요청 보내기
-        sendRequestToGPT(myPost)
+        val currentFragment = fragmentsHandler.getCurrentFragment()
 
-        // PaPago 에 요청 보내기
-        sendRequestToPaPaGo(input)
+        if (currentFragment == "GPT") {
+            val myPost = MyPost("gpt-3.5-turbo", listOf(userMessage))
+            // GPT-3.5-turbo에 요청 보내기
+            sendRequestToGPT(myPost)
+        } else if (currentFragment == "PaPaGo") {
+            // PaPago 에 요청 보내기
+            sendRequestToPaPaGo(input)
+        }
     }
 
     // 로딩
@@ -96,7 +100,15 @@ class MainActivity : AppCompatActivity() {
 
     // PaPaGo API
     private fun sendRequestToPaPaGo(input: String) {
+        // 로딩 다이얼로그 소환
+        loadingDialog.show()
+        
         APIManager.detect(input) { langCode ->
+            // 로딩 다이얼로그 닫기
+            runOnUiThread {
+                loadingDialog.dismiss()
+            }
+    
             if (langCode == "ko") {
                 APIManager.translateKoreaToEng(input) { translatedText ->
                     runOnUiThread {
