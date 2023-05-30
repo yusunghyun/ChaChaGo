@@ -64,7 +64,7 @@
             android:id="@+id/sending"
             android:layout_width="54dp"
             android:layout_height="54dp"
-            android:layout_marginStart="316dp"
+            android:layout_marginStart="336dp"
             android:layout_marginTop="28dp"
             android:adjustViewBounds="true"
             android:background="#FBFBFB"
@@ -72,6 +72,19 @@
             app:layout_constraintStart_toStartOf="@+id/input"
             app:layout_constraintTop_toTopOf="@+id/input"
             app:srcCompat="@drawable/sending" />
+
+        <ImageButton
+            android:id="@+id/close_btn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="304dp"
+            android:layout_marginTop="40dp"
+            android:adjustViewBounds="true"
+            android:background="#FBFBFB"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="@+id/input"
+            app:layout_constraintTop_toTopOf="@+id/input"
+            app:srcCompat="@drawable/close" />
 
         <ImageView
             android:id="@+id/imageView3"

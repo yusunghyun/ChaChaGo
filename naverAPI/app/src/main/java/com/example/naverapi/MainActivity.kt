@@ -34,6 +34,11 @@ class MainActivity : AppCompatActivity() {
             val userInput = binding.input.text.toString()
             handleUserInput(userInput)
         }
+
+        // x버튼 입력한 내용 초기화
+        binding.closeBtn.setOnClickListener {
+            binding.input.text?.clear()
+        }
     }
 
     private fun handleUserInput(input: String) {
@@ -90,17 +95,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     // PaPaGo API
-        private fun sendRequestToPaPaGo(input: String) {
+    private fun sendRequestToPaPaGo(input: String) {
         APIManager.detect(input) { langCode ->
             if (langCode == "ko") {
                 APIManager.translateKoreaToEng(input) { translatedText ->
-                    runOnUiThread{fragmentsHandler.getNaverFragment().updateFragText(translatedText)
-                    Log.d("iise", "성공")
-                }}
+                    runOnUiThread {
+                        fragmentsHandler.getNaverFragment().updateFragText(translatedText)
+                        Log.d("iise", "성공")
+                    }
+                }
             } else if (langCode == "en") {
                 APIManager.translateEngToKorea(input) { translatedTexts ->
-                    runOnUiThread{fragmentsHandler.getNaverFragment().updateFragText(translatedTexts)
-                }}
+                    runOnUiThread {
+                        fragmentsHandler.getNaverFragment().updateFragText(translatedTexts)
+                    }
+                }
             } else {
                 // 다른 언어인 경우 처리
                 Log.d("iise", "실패")
